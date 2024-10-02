@@ -75,13 +75,20 @@ const allQuestions = [
 
 let currentQuestionIndex = 0;
 let score = 0;
+let selectedQuestions = [];
+
+function selectRandomQuestions() {
+    const shuffled = allQuestions.sort(() => 0.5 - Math.random());
+    selectedQuestions = shuffled.slice(0, 10);
+}
 
 function startGame() {
-    currentQuestionIndex = 0;
+    currentQuestionIndex = 0; 
+    selectRandomQuestions();
     score = 0;
     document.getElementById('score-container').style.display = 'none';
     document.getElementById('quiz-container').style.display = 'block';
-    showQuestion(allQuestions[currentQuestionIndex]);
+    showQuestion(selectedQuestions[currentQuestionIndex]);
 }
 
 function showQuestion(question) {
@@ -89,6 +96,7 @@ function showQuestion(question) {
     const answersElement = document.getElementById('answers');
     questionElement.innerText = question.question;
     answersElement.innerHTML = '';
+
     question.answers.forEach(answer => {
         const button = document.createElement('button');
         button.innerText = answer.text;
@@ -120,8 +128,8 @@ function selectAnswer(answer) {
 
     setTimeout(() => {
         currentQuestionIndex++;
-        if (currentQuestionIndex < allQuestions.length) {
-            showQuestion(allQuestions[currentQuestionIndex]);
+        if (currentQuestionIndex < selectedQuestions.length) {
+            showQuestion(selectedQuestions[currentQuestionIndex]);
         } else {
             showScore();
         }
@@ -140,7 +148,7 @@ function highlightIncorrectAnswers() {
 function showScore() {
     document.getElementById('quiz-container').style.display = 'none';
     const scoreElement = document.getElementById('score');
-    scoreElement.innerText = `Você acertou ${score} de ${allQuestions.length} perguntas!`;
+    scoreElement.innerText = `Você acertou ${score} de ${selectedQuestions.length} perguntas!`;
     document.getElementById('score-container').style.display = 'block';
 }
 
