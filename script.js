@@ -74,37 +74,50 @@ const allQuestions = [
 ];
 
 let currentQuestionIndex = 0;
+let score = 0;
 
 function startGame() {
     currentQuestionIndex = 0;
+    score = 0;
+    document.getElementById('score-container').style.display = 'none';
+    document.getElementById('quiz-container').style.display = 'block';
     showQuestion(allQuestions[currentQuestionIndex]);
 }
 
 function showQuestion(question) {
     const questionElement = document.getElementById('question');
-    const answerButtonsElement = document.getElementById('answer-buttons');
+    const answersElement = document.getElementById('answers');
     questionElement.innerText = question.question;
-    answerButtonsElement.innerHTML = '';
-
+    answersElement.innerHTML = '';
     question.answers.forEach(answer => {
         const button = document.createElement('button');
         button.innerText = answer.text;
-        button.classList.add('btn');
+        button.classList.add('answer');
         button.addEventListener('click', () => selectAnswer(answer));
-        answerButtonsElement.appendChild(button);
+        answersElement.appendChild(button);
     });
 }
 
 function selectAnswer(answer) {
-    const answerButtonsElement = document.getElementById('answer-buttons');
+    const correctColor = '#4CAF50'; // Verde escuro
+    const wrongColor = '#F44336'; // Vermelho
 
-    answerButtonsElement.querySelectorAll('button').forEach(button => {
+    if (answer.correct) {
+        score++;
+        document.getElementById('question').style.color = correctColor;
+    } else {
+        document.getElementById('question').style.color = wrongColor;
+        highlightIncorrectAnswers();
+    }
+
+    const answers = document.querySelectorAll('.answer');
+    answers.forEach(button => {
+        button.disabled = true;
         if (button.innerText === answer.text) {
-            button.style.backgroundColor = answer.correct ? 'darkgreen' : 'red';
+            button.style.backgroundColor = answer.correct ? correctColor : wrongColor;
         } else if (button.innerText === allQuestions[currentQuestionIndex].answers.find(a => a.correct).text) {
-            button.style.backgroundColor = 'darkgreen';
+            button.style.backgroundColor = correctColor;
         }
-        button.disabled = true; // Desabilita os botões após a seleção
     });
 
     setTimeout(() => {
@@ -112,10 +125,27 @@ function selectAnswer(answer) {
         if (currentQuestionIndex < allQuestions.length) {
             showQuestion(allQuestions[currentQuestionIndex]);
         } else {
-            alert("Fim do jogo!");
+            showScore();
         }
-    }, 1000); // Aguarda 1 segundo antes de ir para a próxima pergunta
+    }, 1000);
 }
 
-// Inicie o jogo
+function highlightIncorrectAnswers() {
+    const answers = document.querySelectorAll('.answer');
+    answers.forEach(button => {
+        if (!allQuestions[currentQuestionIndex].answers.find(a => a.text === button.innerText).correct) {
+            button.style.backgroundColor = '#F44336'; // Vermelho
+        }
+    });
+}
+
+function showScore() {
+    document.getElementById('quiz-container').style.display = 'none';
+    const scoreElement = document.getElementById('score');
+    scoreElement.innerText = `Você acertou ${score} de ${allQuestions.length} perguntas!`;
+    document.getElementById('score-container').style.display = 'block';
+}
+
+document.getElementById('restart-button').addEventListener('click', startGame);
+
 startGame();
