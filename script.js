@@ -71,79 +71,63 @@ const allQuestions = [
     { question: "Qual é a principal exportação do Brasil?", answers: [{ text: "Café", correct: true }, { text: "Soja", correct: false }, { text: "Minério de Ferro", correct: false }, { text: "Carne", correct: false }] },
     { question: "Qual é a capital da Irlanda?", answers: [{ text: "Dublin", correct: true }, { text: "Cork", correct: false }, { text: "Belfast", correct: false }, { text: "Galway", correct: false }] },
     { question: "Qual é o país conhecido como a terra dos cangurus?", answers: [{ text: "Nova Zelândia", correct: false }, { text: "Austrália", correct: true }, { text: "Canadá", correct: false }, { text: "África do Sul", correct: false }] },
+   
 ];
 
 let currentQuestionIndex = 0;
-let score = 0;
 
 function startGame() {
     currentQuestionIndex = 0;
-    score = 0;
-    document.getElementById('score-container').style.display = 'none';
-    document.getElementById('quiz-container').style.display = 'block';
-    showQuestion(allQuestions[currentQuestionIndex]);
+    showQuestion();
 }
 
-function showQuestion(question) {
+function showQuestion() {
     const questionElement = document.getElementById('question');
     const answersElement = document.getElementById('answers');
-    questionElement.innerText = question.question;
-    answersElement.innerHTML = '';
-    question.answers.forEach(answer => {
+    
+    const currentQuestion = allQuestions[currentQuestionIndex];
+    questionElement.innerText = currentQuestion.question;
+    
+    answersElement.innerHTML = ''; // Limpa respostas anteriores
+    
+    currentQuestion.answers.forEach(answer => {
         const button = document.createElement('button');
         button.innerText = answer.text;
-        button.classList.add('answer');
-        button.addEventListener('click', () => selectAnswer(answer));
+        button.classList.add('btn');
+        button.addEventListener('click', () => selectAnswer(answer, button));
         answersElement.appendChild(button);
     });
 }
 
-function selectAnswer(answer) {
-    const correctColor = '#4CAF50'; // Verde escuro
-    const wrongColor = '#F44336'; // Vermelho
-
-    if (answer.correct) {
-        score++;
-    } else {
-        highlightIncorrectAnswers();
+function selectAnswer(answer, button) {
+    const correctAnswer = allQuestions[currentQuestionIndex].answers.find(a => a.correct);
+    
+    // Destaca a resposta correta
+    if (correctAnswer) {
+        document.querySelectorAll('.btn').forEach(btn => {
+            if (btn.innerText === correctAnswer.text) {
+                btn.style.backgroundColor = 'darkgreen'; // Resposta correta
+                btn.style.color = 'white';
+            } else {
+                btn.style.backgroundColor = 'red'; // Respostas erradas
+                btn.style.color = 'white';
+            }
+            btn.disabled = true; // Desabilita todos os botões
+        });
     }
 
-    const answers = document.querySelectorAll('.answer');
-    answers.forEach(button => {
-        button.disabled = true;
-        if (button.innerText === answer.text) {
-            button.style.backgroundColor = answer.correct ? correctColor : wrongColor;
-        } else if (button.innerText === allQuestions[currentQuestionIndex].answers.find(a => a.correct).text) {
-            button.style.backgroundColor = correctColor;
-        }
-    });
-
+    // Aguarda 1 segundo antes de passar para a próxima pergunta
     setTimeout(() => {
         currentQuestionIndex++;
         if (currentQuestionIndex < allQuestions.length) {
-            showQuestion(allQuestions[currentQuestionIndex]);
+            showQuestion();
         } else {
-            showScore();
+            // Finaliza o jogo, por exemplo, mostrando uma mensagem de agradecimento
+            document.getElementById('question').innerText = "Fim do jogo!";
+            document.getElementById('answers').innerHTML = '';
         }
     }, 1000);
 }
 
-function highlightIncorrectAnswers() {
-    const answers = document.querySelectorAll('.answer');
-    answers.forEach(button => {
-        if (!allQuestions[currentQuestionIndex].answers.find(a => a.text === button.innerText).correct) {
-            button.style.backgroundColor = '#F44336'; // Vermelho
-        }
-    });
-}
-
-function showScore() {
-    document.getElementById('quiz-container').style.display = 'none';
-    const scoreElement = document.getElementById('score');
-    scoreElement.innerText = `Você acertou ${score} de ${allQuestions.length} perguntas!`;
-    document.getElementById('score-container').style.display = 'block';
-}
-
-document.getElementById('restart-button').addEventListener('click', startGame);
-
-startGame();
+// Inicia o jogo ao carregar a página
+window.onload = startGame;
