@@ -67,6 +67,20 @@ button:hover {
     animation: fade 0.5s ease-in-out;
 }
 
+#apelido {
+    font-size: 24px; /* Tamanho da fonte */
+    font-weight: bold; /* Deixa a fonte em negrito */
+    color: #330dda; /* Cor verde */
+    text-align: center; /* Centraliza o texto */
+    margin-top: 20px; /* Espaço acima do apelido */
+    padding: 10px; /* Espaço interno */
+    transition: transform 0.3s; /* Animação ao passar o mouse */
+}
+
+#apelido:hover {
+    transform: scale(1.05); /* Aumenta ligeiramente o tamanho ao passar o mouse */
+}
+
 @keyframes fade {
     from {
         opacity: 0;

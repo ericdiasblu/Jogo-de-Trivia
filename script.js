@@ -147,9 +147,34 @@ function highlightIncorrectAnswers() {
 
 function showScore() {
     document.getElementById('quiz-container').style.display = 'none';
+    
+    const apelido = getApelido(score);
     const scoreElement = document.getElementById('score');
+    const apelidoElement = document.getElementById('apelido');
+
     scoreElement.innerText = `Você acertou ${score} de ${selectedQuestions.length} perguntas!`;
+    apelidoElement.innerText = `${apelido}`;
+
     document.getElementById('score-container').style.display = 'block';
+}
+
+
+function getApelido(acertos) {
+    if (acertos === 10) {
+        return "Gênio";
+    } else if (acertos >= 8) {
+        return "Expert";
+    } else if (acertos >= 6) {
+        return "Sábio";
+    } else if (acertos >= 4) {
+        return "Estudioso";
+    } else if (acertos >= 2) {
+        return "Curioso";
+    } else if (acertos === 1) {
+        return "Iniciante";
+    } else {
+        return "Desafiante";
+    }
 }
 
 document.getElementById('restart-button').addEventListener('click', startGame);
