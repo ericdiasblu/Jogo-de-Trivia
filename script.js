@@ -104,6 +104,9 @@ function showQuestion(question) {
         button.addEventListener('click', () => selectAnswer(answer));
         answersElement.appendChild(button);
     });
+
+    const questionIndexElement = document.getElementById("questionIndex");
+    questionIndexElement.innerText = `${currentQuestionIndex + 1}`;
 }
 
 function selectAnswer(answer) {

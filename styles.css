@@ -20,10 +20,30 @@ body {
     width: 320px;
 }
 
+#top-question {
+    position: relative; /* Cria um contexto para o posicionamento absoluto */
+}
+
+#questionIndex {
+    position: absolute; /* Posiciona o index */
+    left: 0; /* Fixa no lado esquerdo */
+    top: 50%; /* Centraliza verticalmente, se necessário */
+    transform: translateY(-50%); /* Ajusta a posição para centralizar */
+}
+
+
+
+
 h1 {
     font-size: 2em;
     color: #9e0059; /* Título em rosa escuro */
     margin-bottom: 20px;
+}
+
+#questionIndex {
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: bold;
 }
 
 button {
