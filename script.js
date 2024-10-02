@@ -104,9 +104,7 @@ function selectAnswer(answer) {
 
     if (answer.correct) {
         score++;
-        document.getElementById('question').style.color = correctColor;
     } else {
-        document.getElementById('question').style.color = wrongColor;
         highlightIncorrectAnswers();
     }
 
