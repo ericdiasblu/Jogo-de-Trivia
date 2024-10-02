@@ -9,7 +9,6 @@ const allQuestions = [
     { question: "Qual é o nome do maior oceano do mundo?", answers: [{ text: "Oceano Atlântico", correct: false }, { text: "Oceano Índico", correct: false }, { text: "Oceano Pacífico", correct: true }, { text: "Oceano Ártico", correct: false }] },
     { question: "Quem pintou a Mona Lisa?", answers: [{ text: "Vincent van Gogh", correct: false }, { text: "Pablo Picasso", correct: false }, { text: "Leonardo da Vinci", correct: true }, { text: "Michelangelo", correct: false }] },
     { question: "Qual é o maior mamífero do mundo?", answers: [{ text: "Elefante", correct: false }, { text: "Baleia Azul", correct: true }, { text: "Girafa", correct: false }, { text: "Orca", correct: false }] },
-    // ... (adicione mais 90 perguntas aqui)
     { question: "Qual é a capital da Noruega?", answers: [{ text: "Copenhague", correct: false }, { text: "Oslo", correct: true }, { text: "Estocolmo", correct: false }, { text: "Helsinque", correct: false }] },
     { question: "Qual é a cor do arco-íris que vem depois do azul?", answers: [{ text: "Verde", correct: false }, { text: "Amarelo", correct: true }, { text: "Vermelho", correct: false }, { text: "Índigo", correct: false }] },
     { question: "Qual é a capital da Islândia?", answers: [{ text: "Reiquiavique", correct: true }, { text: "Copenhague", correct: false }, { text: "Oslo", correct: false }, { text: "Estocolmo", correct: false }] },
@@ -75,63 +74,48 @@ const allQuestions = [
 ];
 
 let currentQuestionIndex = 0;
-let score = 0;
-let selectedQuestions = [];
-
-// Seleciona 10 perguntas aleatórias
-function selectRandomQuestions() {
-    const shuffled = allQuestions.sort(() => 0.5 - Math.random());
-    selectedQuestions = shuffled.slice(0, 10);
-}
 
 function startGame() {
     currentQuestionIndex = 0;
-    score = 0;
-    selectRandomQuestions();
-    document.getElementById('score-container').style.display = 'none';
-    document.getElementById('quiz-container').style.display = 'block';
-    showQuestion(selectedQuestions[currentQuestionIndex]);
+    showQuestion(allQuestions[currentQuestionIndex]);
 }
 
 function showQuestion(question) {
     const questionElement = document.getElementById('question');
+    const answerButtonsElement = document.getElementById('answer-buttons');
     questionElement.innerText = question.question;
-
-    const answersElement = document.getElementById('answers');
-    answersElement.innerHTML = '';
+    answerButtonsElement.innerHTML = '';
 
     question.answers.forEach(answer => {
         const button = document.createElement('button');
         button.innerText = answer.text;
-        button.classList.add('answer');
+        button.classList.add('btn');
         button.addEventListener('click', () => selectAnswer(answer));
-        answersElement.appendChild(button);
+        answerButtonsElement.appendChild(button);
     });
-
-    document.getElementById('next-button').style.display = 'none';
 }
 
 function selectAnswer(answer) {
-    if (answer.correct) {
-        score++;
-    }
+    const answerButtonsElement = document.getElementById('answer-buttons');
 
-    // Exibe a próxima pergunta imediatamente após a resposta
-    currentQuestionIndex++;
-    if (currentQuestionIndex < selectedQuestions.length) {
-        showQuestion(selectedQuestions[currentQuestionIndex]);
-    } else {
-        showScore();
-    }
+    answerButtonsElement.querySelectorAll('button').forEach(button => {
+        if (button.innerText === answer.text) {
+            button.style.backgroundColor = answer.correct ? 'darkgreen' : 'red';
+        } else if (button.innerText === allQuestions[currentQuestionIndex].answers.find(a => a.correct).text) {
+            button.style.backgroundColor = 'darkgreen';
+        }
+        button.disabled = true; // Desabilita os botões após a seleção
+    });
+
+    setTimeout(() => {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < allQuestions.length) {
+            showQuestion(allQuestions[currentQuestionIndex]);
+        } else {
+            alert("Fim do jogo!");
+        }
+    }, 1000); // Aguarda 1 segundo antes de ir para a próxima pergunta
 }
 
-
-
-function showScore() {
-    document.getElementById('quiz-container').style.display = 'none';
-    document.getElementById('score-container').style.display = 'block';
-    document.getElementById('score').innerText = `Você acertou ${score} de ${selectedQuestions.length} perguntas!`;
-}
-
-document.getElementById('restart-button').addEventListener('click', startGame);
+// Inicie o jogo
 startGame();
