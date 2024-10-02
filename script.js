@@ -73,85 +73,86 @@ const allQuestions = [
     { question: "Qual é o país conhecido como a terra dos cangurus?", answers: [{ text: "Nova Zelândia", correct: false }, { text: "Austrália", correct: true }, { text: "Canadá", correct: false }, { text: "África do Sul", correct: false }] },
 ];
 
-function getRandomQuestions(numQuestions) {
-    const shuffledQuestions = allQuestions.sort(() => 0.5 - Math.random());
-    return shuffledQuestions.slice(0, numQuestions);
-}
-
-// Usando a função para obter 10 perguntas
-const questionsToAsk = getRandomQuestions(10);
+const questionContainer = document.getElementById("question-container");
+const questionElement = document.getElementById("question");
+const answerButtons = document.getElementById("answer-buttons");
+const nextButton = document.getElementById("next-button");
 
 let currentQuestionIndex = 0;
-let score = 0;
+let questionCount = 0; // Variável para contar as perguntas respondidas
 
 function startGame() {
     currentQuestionIndex = 0;
-    score = 0;
-    document.getElementById('score-container').style.display = 'none';
-    document.getElementById('quiz-container').style.display = 'block';
+    questionCount = 0; // Reinicia a contagem ao iniciar o jogo
+    nextButton.classList.add("hide");
     showQuestion(allQuestions[currentQuestionIndex]);
 }
 
 function showQuestion(question) {
-    const questionElement = document.getElementById('question');
-    const answersElement = document.getElementById('answers');
     questionElement.innerText = question.question;
-    answersElement.innerHTML = '';
+    answerButtons.innerHTML = ""; // Limpa respostas anteriores
     question.answers.forEach(answer => {
-        const button = document.createElement('button');
+        const button = document.createElement("button");
         button.innerText = answer.text;
-        button.classList.add('answer');
-        button.addEventListener('click', () => selectAnswer(answer));
-        answersElement.appendChild(button);
+        button.classList.add("btn");
+        button.addEventListener("click", () => selectAnswer(answer));
+        answerButtons.appendChild(button);
     });
 }
 
 function selectAnswer(answer) {
-    const correctColor = '#4CAF50'; // Verde escuro
-    const wrongColor = '#F44336'; // Vermelho
-
-    if (answer.correct) {
-        score++;
+    const correct = answer.correct;
+    const buttons = answerButtons.children;
+    
+    if (correct) {
+        // Resposta correta
+        showCorrectAnswer(buttons);
     } else {
-        highlightIncorrectAnswers();
+        // Resposta incorreta
+        showIncorrectAnswer(buttons);
     }
 
-    const answers = document.querySelectorAll('.answer');
-    answers.forEach(button => {
-        button.disabled = true;
+    questionCount++; // Incrementa a contagem de perguntas
+    nextButton.classList.remove("hide");
+
+    // Verifica se o jogo deve ser finalizado
+    if (questionCount >= 10) {
+        nextButton.innerText = "Fim do Jogo!"; // Alterar o texto do botão
+        nextButton.addEventListener("click", endGame); // Adiciona a função para finalizar o jogo
+    } else {
+        nextButton.addEventListener("click", () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < allQuestions.length) {
+                showQuestion(allQuestions[currentQuestionIndex]);
+            } else {
+                endGame(); // Se não houver mais perguntas, finalize o jogo
+            }
+        });
+    }
+}
+
+function showCorrectAnswer(buttons) {
+    // Exibir resposta correta
+    Array.from(buttons).forEach(button => {
         if (button.innerText === answer.text) {
-            button.style.backgroundColor = answer.correct ? correctColor : wrongColor;
-        } else if (button.innerText === allQuestions[currentQuestionIndex].answers.find(a => a.correct).text) {
-            button.style.backgroundColor = correctColor;
-        }
-    });
-
-    setTimeout(() => {
-        currentQuestionIndex++;
-        if (currentQuestionIndex < allQuestions.length) {
-            showQuestion(allQuestions[currentQuestionIndex]);
-        } else {
-            showScore();
-        }
-    }, 1000);
-}
-
-function highlightIncorrectAnswers() {
-    const answers = document.querySelectorAll('.answer');
-    answers.forEach(button => {
-        if (!allQuestions[currentQuestionIndex].answers.find(a => a.text === button.innerText).correct) {
-            button.style.backgroundColor = '#F44336'; // Vermelho
+            button.classList.add("correct");
         }
     });
 }
 
-function showScore() {
-    document.getElementById('quiz-container').style.display = 'none';
-    const scoreElement = document.getElementById('score');
-    scoreElement.innerText = `Você acertou ${score} de ${allQuestions.length} perguntas!`;
-    document.getElementById('score-container').style.display = 'block';
+function showIncorrectAnswer(buttons) {
+    // Exibir respostas incorretas
+    Array.from(buttons).forEach(button => {
+        if (button.innerText === answer.text) {
+            button.classList.add("incorrect");
+        }
+    });
 }
 
-document.getElementById('restart-button').addEventListener('click', startGame);
+function endGame() {
+    questionContainer.innerHTML = `<h2>Você respondeu ${questionCount} perguntas!</h2>`;
+    questionContainer.classList.add("hide"); // Oculta as perguntas
+}
 
+// Iniciar o jogo
 startGame();
