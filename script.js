@@ -88,6 +88,8 @@ function startGame() {
     score = 0;
     document.getElementById('score-container').style.display = 'none';
     document.getElementById('quiz-container').style.display = 'block';
+    document.querySelector('hr').style.display = 'block'; // Mostra a linha
+    document.getElementById('questionIndex').style.display = 'block'; // Mostra o índice da pergunta
     showQuestion(selectedQuestions[currentQuestionIndex]);
 }
 
