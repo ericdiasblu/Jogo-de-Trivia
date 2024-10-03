@@ -25,14 +25,13 @@ body {
 }
 
 #questionIndex {
-    position: absolute; /* Posiciona o index */
+    margin-top: 40px;
+    color: #390099;
+    position: center; /* Posiciona o index */
     left: 0; /* Fixa no lado esquerdo */
     top: 50%; /* Centraliza verticalmente, se necessário */
     transform: translateY(-50%); /* Ajusta a posição para centralizar */
 }
-
-
-
 
 h1 {
     font-size: 2em;

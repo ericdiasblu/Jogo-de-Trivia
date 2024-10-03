@@ -150,6 +150,9 @@ function highlightIncorrectAnswers() {
 
 function showScore() {
     document.getElementById('quiz-container').style.display = 'none';
+
+    document.querySelector('hr').style.display = 'none'; // Oculta a linha
+    document.getElementById('questionIndex').style.display = 'none'; // Oculta o índice da pergunta
     
     const apelido = getApelido(score);
     const scoreElement = document.getElementById('score');
