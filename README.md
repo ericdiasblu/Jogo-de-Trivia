@@ -31,7 +31,7 @@ Trivia World é um emocionante jogo de trivia que desafia seu conhecimento em um
 
 ### 🌐 Experimente Agora!
 
-👉 [Acesse Trivia World e comece a jogar!](link_do_seu_site)
+👉 [Acesse Trivia World e comece a jogar!]([link_do_seu_site](https://ericdiasblu.github.io/Jogo-de-Trivia/))
 
 ### 📢 Fique Conectado!
 
