@@ -6,7 +6,7 @@ document.addEventListener('keydown', function(event) {
 
         // Após a animação, redireciona para a página do jogo
         setTimeout(() => {
-            window.location.href = '../geral-theme/game.html'; // Caminho para o jogo
+            window.location.href = 'C:/Users/eric_dias/Desktop/trivia/Jogo-de-Trivia/geral-theme/game.html'; // Caminho para o jogo
         }, 500); // Tempo da animação
     }
 });
