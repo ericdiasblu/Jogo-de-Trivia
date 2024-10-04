@@ -45,7 +45,8 @@ h1 {
     letter-spacing: 0.5rem;
     text-transform: uppercase;
     background: -webkit-linear-gradient(45deg, #fff, #ff0054);
-    -webkit-background-clip: text;
+    background-clip: text; /* Clipa o fundo ao texto */
+    -webkit-background-clip: text; /* Para suporte em navegadores WebKit */
     -webkit-text-fill-color: transparent;
 }
 

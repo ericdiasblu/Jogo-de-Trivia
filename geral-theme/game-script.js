@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.container');
     container.classList.add('zoom-in'); // Adiciona a animação de zoom in ao carregar a página
-
-    document.getElementById('restart-button').addEventListener('click', startGame);
 });
 
 const allQuestions = [
