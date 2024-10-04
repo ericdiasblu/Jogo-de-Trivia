@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="icon.png">    
+    <title>Trivia World</title>
+    <link rel="stylesheet" href="game-styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Trivia World</h1>
+        <hr style="border: 1px solid #9e0059;">
+        <div id="questionIndex" style="font-size: 1.5em;">1</div>
+        <div id="quiz-container">
+            <div id="top-question">
+                <div id="question"></div>
+            </div>
+            <div id="answers"></div>
+        </div>
+        <div id="score-container" style="display: none;">
+            <hr>
+            <p id="apelido"></p>
+            <p id="score"></p>
+            
+            <button id="restart-button">Jogar Novamente</button>
+        </div>
+    </div>
+    <script src="game-script.js"></script>
+</body>
+</html>
