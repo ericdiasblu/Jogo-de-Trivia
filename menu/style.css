@@ -64,30 +64,32 @@ p {
     }
 }
 
-/* Animação de entrada */
-@keyframes fadeIn {
+@keyframes zoom-in {
     from {
+        transform: scale(0);
         opacity: 0;
     }
     to {
+        transform: scale(1);
         opacity: 1;
     }
 }
 
-.fade-in {
-    animation: fadeIn 2s ease-in-out;
-}
-
-/* Efeito de zoom */
-.zoom-in {
-    animation: zoomIn 0.5s forwards;
-}
-
-@keyframes zoomIn {
-    0% {
+@keyframes zoom-out {
+    from {
         transform: scale(1);
+        opacity: 1;
     }
-    100% {
-        transform: scale(1.2);
+    to {
+        transform: scale(0);
+        opacity: 0;
     }
+}
+
+.zoom-in {
+    animation: zoom-in 0.5s forwards; /* Aplica a animação de zoom-in */
+}
+
+.zoom-out {
+    animation: zoom-out 0.5s forwards; /* Aplica a animação de zoom-out */
 }

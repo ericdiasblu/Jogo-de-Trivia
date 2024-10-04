@@ -134,21 +134,7 @@ button:hover {
     }
 }
 
-@keyframes zoom-out {
-    from {
-        transform: scale(1);
-        opacity: 1;
-    }
-    to {
-        transform: scale(0);
-        opacity: 0;
-    }
-}
-
 .zoom-in {
-    animation: zoom-in 0.5s ease forwards; /* Efeito de zoom in */
+    animation: zoom-in 0.5s forwards; /* Aplica a animação */
 }
 
-.zoom-out {
-    animation: zoom-out 0.5s ease forwards; /* Efeito de zoom out */
-}
