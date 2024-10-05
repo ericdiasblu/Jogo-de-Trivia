@@ -1,0 +1,102 @@
+/* Estilos gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #9e0059, #330dda);
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* Efeito de fundo */
+body::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2), transparent 70%);
+    pointer-events: none;
+}
+
+/* Título estático */
+h1 {
+    font-size: 4rem;
+    letter-spacing: 0.5rem;
+    text-transform: uppercase;
+    background: -webkit-linear-gradient(45deg, #fff, #ff0054);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Botões */
+.button-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Espaçamento entre os botões */
+}
+
+/* Botões retangulares */
+.quiz-button {
+    width: 200px; 
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out; /* Suave ao aumentar/diminuir */
+    margin: 10px;
+    background-color: #ff0054;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animação ao passar o mouse */
+.quiz-button:hover {
+    transform: scale(1.1); /* Aumenta o botão ao passar o mouse */
+}
+
+/* Imagem do botão */
+.button-image {
+    width: 80px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+/* Texto nos Botões */
+.button-text {
+    color: white;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+/* Animação de zoom-in */
+@keyframes zoom-in {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.zoom-in {
+    animation: zoom-in 0.5s forwards;
+}

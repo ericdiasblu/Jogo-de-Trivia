@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="menu-style.css"> <!-- Certifique-se de que o caminho esteja correto -->
+    <title>Selecione o Tema do Quiz</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Escolha o Tema do Quiz</h1>
+        <div class="button-container">
+            <div class="quiz-button geral-button" onclick="window.location.href='../geral-theme/game.html'">
+                <img class="button-image" src="imagem-geral.png" alt="Ícone Geral">
+                <span class="button-text">Geral</span>
+            </div>
+            <div class="quiz-button filmes-button" onclick="window.location.href='filmes-theme/game.html'">
+                <img class="button-image" src="imagem-filmes.png" alt="Ícone Filmes">
+                <span class="button-text">Filmes</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Adiciona a animação de zoom-in aos botões ao carregar a página
+        window.onload = function() {
+            const buttons = document.querySelectorAll('.quiz-button');
+            buttons.forEach(button => {
+                button.classList.add('zoom-in');
+            });
+        };
+    </script>
+</body>
+</html>
