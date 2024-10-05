@@ -46,6 +46,7 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 20px; /* Espaçamento entre os botões */
+    overflow: visible; /* Garanta que não esteja escondendo o botão */
 }
 
 /* Botões retangulares */
@@ -59,16 +60,18 @@ h1 {
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.3s ease-in-out; /* Suave ao aumentar/diminuir */
+    transition: transform 0.3s; /* Suave ao aumentar/diminuir */
     margin: 10px;
     background-color: #ff0054;
     position: relative;
     overflow: hidden;
+    z-index: 10; /* Um valor maior que o da imagem */
 }
 
 /* Animação ao passar o mouse */
 .quiz-button:hover {
-    transform: scale(1.1); /* Aumenta o botão ao passar o mouse */
+    background-color: #ec6391;
+    transform: scale(1.5); /* Aumenta o botão ao passar o mouse */
 }
 
 /* Imagem do botão */
@@ -76,6 +79,8 @@ h1 {
     width: 80px;
     height: auto;
     margin-bottom: 10px;
+    position: relative; /* Alinha com o botão */
+    z-index: 5; /* Um valor menor que o botão */
 }
 
 /* Texto nos Botões */
@@ -99,4 +104,44 @@ h1 {
 
 .zoom-in {
     animation: zoom-in 0.5s forwards;
+}
+
+/* CSS da Página 2 - Adicione ao final do seu CSS existente */
+
+.fade-in {
+    animation: fade-in 0.3s forwards; /* Animação de fade-in */
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Ao carregar a página, adicione a animação de zoom-in */
+body {
+    animation: zoom-in 0.3s forwards;
+}
+
+
+/* Animação de fade-out */
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.fade-out {
+    animation: fade-out 1s forwards; /* Animação de fade-out */
+}
+
+/* Para garantir que o body não seja visível durante a animação de desvanecimento */
+body.fade-out {
+    pointer-events: none; /* Desativa eventos enquanto a animação acontece */
 }

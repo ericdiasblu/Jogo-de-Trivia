@@ -153,3 +153,29 @@ button:hover {
 .back-button:hover {
     background-color: #ff0054; /* Cor do botão ao passar o mouse */
 }
+
+.fade-out {
+    animation: fade-out 0.3s forwards; /* Duração da animação de saída */
+}
+
+.fade-in {
+    animation: fade-in 0.3s forwards; /* Duração da animação de entrada */
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
