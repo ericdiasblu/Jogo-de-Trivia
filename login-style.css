@@ -43,13 +43,13 @@ body {
     outline: none; /* Remove a borda padrão do foco */
 }
 
-.input-group input::placeholder {
-    color: white; /* Muda a cor do texto do placeholder para branco */
-}
-
 /* Adicionando a borda ao foco */
 .input-group input:focus {
     border-color: #d9d9d9; /* Mantém a mesma cor ao focar */
+}
+
+.input-group input::placeholder {
+    color: white; /* Muda a cor do texto do placeholder para branco */
 }
 
 button {
@@ -72,7 +72,7 @@ p {
 }
 
 a {
-    color: #007bff;
+    color: #ffffff;
     text-decoration: none;
     font-size: 12px; /* Diminui o tamanho do texto para os links */
 }
@@ -84,6 +84,46 @@ a:hover {
 .checkbox {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Para espaçar checkbox e link */
+    justify-content: flex-start; /* Alinha à esquerda */
     font-size: 12px; /* Diminui o tamanho do texto para "Lembrar de mim" e "Esqueceu sua senha?" */
+}
+
+.checkbox input {
+    margin-right: 5px; /* Espaçamento entre a checkbox e o texto */
+}
+
+.forgot-password {
+    margin-top: 10px; /* Ajuste o valor conforme necessário para aumentar a distância */
+    text-align: center; /* Centraliza o texto "Esqueceu sua senha?" */
+}
+
+.checkbox {
+    display: flex;
+    align-items: center; /* Alinha os itens verticalmente */
+    justify-content: space-between; /* Espaça os elementos ao longo do eixo principal */
+    font-size: 12px; /* Tamanho do texto */
+    width: 100%; /* Certifique-se de que a largura é 100% para usar justify-content */
+    padding-top: 10px; /* Ajuste o espaço acima, se necessário */
+    margin-bottom: 10px;
+}
+
+.checkbox input {
+    margin-right: 5px; /* Espaçamento entre a checkbox e o texto */
+}
+
+.rememberme {
+    display: flex; /* Permite alinhar o checkbox e o texto na mesma linha */
+    align-items: center; /* Alinha verticalmente */
+    flex-grow: 1; /* Faz com que este bloco cresça e ocupe espaço */
+}
+
+.forgotpass .forgot {
+    font-weight: bold;
+    text-decoration: none;
+    
+}
+
+.register-link {
+    font-weight: bold;
+    text-decoration: none;
 }
