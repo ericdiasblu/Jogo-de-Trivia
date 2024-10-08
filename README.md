@@ -15,7 +15,7 @@ Trivia World é um emocionante jogo de trivia que desafia seu conhecimento em um
 ### 🌈 Temas Disponíveis
 
 - **Geral**
-- **Filmes** (Em construção!)
+- **Filmes**
 
 ### 🎯 Recursos
 
