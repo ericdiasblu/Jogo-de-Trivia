@@ -6,7 +6,7 @@ document.addEventListener('keydown', function(event) {
 
         // Após a animação, redireciona para a página do jogo
         setTimeout(() => {
-            window.location.href = 'menu/menu.html'; // Caminho para o jogo
+            window.location.href = '../menu/menu.html'; // Caminho para o jogo
         }, 300); // Tempo da animação
     }
 });

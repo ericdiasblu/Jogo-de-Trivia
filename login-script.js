@@ -44,7 +44,7 @@ window.login = function() {
         .then((userCredential) => {
             alert("Login realizado com sucesso!");
             console.log(userCredential.user);
-            window.location.href = "index.html";
+            window.location.href = "./tela-inicial/tela-inicial.html";
         })
         .catch((error) => {
             console.error("Erro no login:", error);
