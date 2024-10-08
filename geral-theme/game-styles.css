@@ -37,8 +37,18 @@ body {
 h1 {
     font-size: 2em;
     color: #9e0059; /* Título em rosa escuro */
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
+
+h2 {
+    text-align: center;
+    font-size: 1.5em; /* ajuste o tamanho conforme necessário */
+    color: #390099;
+    margin: 0.5em 0; /* ajuste a margem conforme necessário */
+}
+
+/* Outros estilos que você já tiver podem ser adicionados aqui */
+
 
 #questionIndex {
     font-size: 18px;

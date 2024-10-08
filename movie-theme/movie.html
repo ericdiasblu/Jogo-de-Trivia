@@ -3,20 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Em Construção</title>
+    <link rel="icon" type="image/x-icon" href="../icon.png">    
+    <title>Trivia World</title>
     <link rel="stylesheet" href="movie-style.css">
 </head>
 <body>
     <div class="container">
-        <h1 class="zoom-in">EM CONSTRUÇÃO</h1>
-        <p class="blink">VOLTE EM BREVE</p>
-        <button class="back-button" onclick="goBack()">Voltar</button>
+        <h1>Trivia World</h1>
+        <h2>Filmes</h2>
+        <hr style="border: 1px solid #9e0059;">
+        <div id="questionIndex" style="font-size: 1.5em;">1</div>
+        <div id="quiz-container">
+            <div id="top-question">
+                <div id="question"></div>
+            </div>
+            <div id="answers"></div>
+        </div>
+        <div id="score-container" style="display: none;">
+            <hr>
+            <p id="apelido"></p>
+            <p id="score"></p>
+            <button id="restart-button">Jogar Novamente</button>
+        </div>
+        <!-- Botão de Voltar -->
+        <button class="back-button" onclick="window.history.back()">Voltar</button>
     </div>
-
-    <script>
-        function goBack() {
-            window.history.back();
-        }
-    </script>
+    <script src="movie-script.js"></script>
 </body>
 </html>
