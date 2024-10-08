@@ -23,21 +23,33 @@ body {
 .login-title {
     text-align: center;
     margin-bottom: 20px;
-    font-size: 30px; /* Aumenta o tamanho do texto "Login" para 20px */
+    font-size: 30px; /* Aumenta o tamanho do texto "Login" para 30px */
 }
 
 .input-group {
+    width: 280px;
     margin-bottom: 15px;
-    color: #ffffff;
+    margin-top: 30px;
+    margin-right: 25px;
 }
 
 .input-group input {
     width: 100%;
     background: transparent;
     padding: 10px;
-    border: 1px solid #d9d9d9;
+    border: 1px solid #d9d9d9; /* Borda padrão */
     border-radius: 40px;
-    color: white; /* Muda a cor do texto do prompt para branco */
+    color: white; /* Muda a cor do texto da entrada para branco */
+    outline: none; /* Remove a borda padrão do foco */
+}
+
+.input-group input::placeholder {
+    color: white; /* Muda a cor do texto do placeholder para branco */
+}
+
+/* Adicionando a borda ao foco */
+.input-group input:focus {
+    border-color: #d9d9d9; /* Mantém a mesma cor ao focar */
 }
 
 button {
@@ -56,11 +68,13 @@ button:hover {
 
 p {
     text-align: center;
+    font-size: 12px; /* Diminui o tamanho do texto para "Não tem uma conta? Cadastre-se" */
 }
 
 a {
-    color: #ffffff;
+    color: #007bff;
     text-decoration: none;
+    font-size: 12px; /* Diminui o tamanho do texto para os links */
 }
 
 a:hover {
@@ -71,4 +85,5 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: space-between; /* Para espaçar checkbox e link */
+    font-size: 12px; /* Diminui o tamanho do texto para "Lembrar de mim" e "Esqueceu sua senha?" */
 }
