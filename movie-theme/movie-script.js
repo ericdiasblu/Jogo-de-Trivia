@@ -48,16 +48,16 @@ const allQuestions = [
     { question: "Qual filme é baseado no livro 'O Senhor das Moscas'?", answers: [{ text: "O Senhor das Moscas", correct: true }, { text: "A Ilha", correct: false }, { text: "Coração das Trevas", correct: false }, { text: "O Nevoeiro", correct: false }] },
     { question: "Qual o nome do personagem principal de 'V de Vingança'?", answers: [{ text: "V", correct: true }, { text: "Evey", correct: false }, { text: "Gordon", correct: false }, { text: "Creedy", correct: false }] },
     { question: "Em que filme podemos ouvir a música 'My Heart Will Go On'?", answers: [{ text: "O Guarda-Costas", correct: false }, { text: "Titanic", correct: true }, { text: "Ghost", correct: false }, { text: "Dirty Dancing", correct: false }] },
-    { question: "Qual filme de terror de 1973 é conhecido por uma garota possuída?", answers: [{ text: "O Exorcista", correct: true }, { text: "A Profecia", correct: false }, { text: "Carrie, a Estranha", correct: false }, { text: "Poltergeist", correct: false }] },
-    { question: "Qual ator é conhecido por interpretar 'Jack Sparrow' em 'Piratas do Caribe'?", answers: [{ text: "Johnny Depp", correct: true }, { text: "Orlando Bloom", correct: false }, { text: "Geoffrey Rush", correct: false }, { text: "Keira Knightley", correct: false }] },
-    { question: "Quem dirigiu o filme 'O Poderoso Chefão'?", answers: [{ text: "Francis Ford Coppola", correct: true }, { text: "Martin Scorsese", correct: false }, { text: "Alfred Hitchcock", correct: false }, { text: "Stanley Kubrick", correct: false }] },
-    { question: "Qual é o nome do protagonista de 'Gladiador'?", answers: [{ text: "Maximus", correct: true }, { text: "Commodus", correct: false }, { text: "Spartacus", correct: false }, { text: "Aurelius", correct: false }] },
-    { question: "Em qual filme de 1994 um prisioneiro escapa pelo esgoto?", answers: [{ text: "Um Sonho de Liberdade", correct: true }, { text: "Fuga de Alcatraz", correct: false }, { text: "A Espera de um Milagre", correct: false }, { text: "O Conde de Monte Cristo", correct: false }] },
-    { question: "Quem dublou a voz de Dory em 'Procurando Nemo'?", answers: [{ text: "Ellen DeGeneres", correct: true }, { text: "Angelina Jolie", correct: false }, { text: "Whoopi Goldberg", correct: false }, { text: "Cameron Diaz", correct: false }] },
-    { question: "Qual filme é estrelado por uma princesa que é salva por um ogro?", answers: [{ text: "Shrek", correct: true }, { text: "Enrolados", correct: false }, { text: "A Bela e a Fera", correct: false }, { text: "Mulan", correct: false }] },
-    { question: "Qual filme se passa em uma ilha cheia de dinossauros?", answers: [{ text: "Jurassic Park", correct: true }, { text: "King Kong", correct: false }, { text: "O Parque dos Dinossauros", correct: false }, { text: "Mundo Perdido", correct: false }] },
-    { question: "Quem interpreta o Coringa em 'Coringa' de 2019?", answers: [{ text: "Joaquin Phoenix", correct: true }, { text: "Heath Ledger", correct: false }, { text: "Jack Nicholson", correct: false }, { text: "Jared Leto", correct: false }] },
-    { question: "Qual o nome do detetive interpretado por Robert Downey Jr. em dois filmes?", answers: [{ text: "Sherlock Holmes", correct: true }, { text: "John Watson", correct: false }, { text: "Hercule Poirot", correct: false }, { text: "Miss Marple", correct: false }] },
+    { question: "Qual filme de terror de 1973 é conhecido por uma garota possuída?", answers: [{ text: "Carrie, a Estranha", correct: false }, { text: "Poltergeist", correct: false }, { text: "O Exorcista", correct: true }, { text: "A Profecia", correct: false }] },
+    { question: "Qual ator é conhecido por interpretar 'Jack Sparrow' em 'Piratas do Caribe'?", answers: [{ text: "Orlando Bloom", correct: false }, { text: "Keira Knightley", correct: false }, { text: "Johnny Depp", correct: true }, { text: "Geoffrey Rush", correct: false }] },
+    { question: "Quem dirigiu o filme 'O Poderoso Chefão'?", answers: [{ text: "Stanley Kubrick", correct: false }, { text: "Francis Ford Coppola", correct: true }, { text: "Martin Scorsese", correct: false }, { text: "Alfred Hitchcock", correct: false }] },
+    { question: "Qual é o nome do protagonista de 'Gladiador'?", answers: [{ text: "Commodus", correct: false }, { text: "Aurelius", correct: false }, { text: "Maximus", correct: true }, { text: "Spartacus", correct: false }] },
+    { question: "Em qual filme de 1994 um prisioneiro escapa pelo esgoto?", answers: [{ text: "Um Sonho de Liberdade", correct: true }, { text: "A Espera de um Milagre", correct: false }, { text: "O Conde de Monte Cristo", correct: false }, { text: "Fuga de Alcatraz", correct: false }] },
+    { question: "Quem dublou a voz de Dory em 'Procurando Nemo'?", answers: [{ text: "Whoopi Goldberg", correct: false }, { text: "Angelina Jolie", correct: false }, { text: "Cameron Diaz", correct: false }, { text: "Ellen DeGeneres", correct: true }] },
+    { question: "Qual filme é estrelado por uma princesa que é salva por um ogro?", answers: [{ text: "Enrolados", correct: false }, { text: "Mulan", correct: false }, { text: "Shrek", correct: true }, { text: "A Bela e a Fera", correct: false }] },
+    { question: "Qual filme se passa em uma ilha cheia de dinossauros?", answers: [{ text: "King Kong", correct: false }, { text: "Jurassic Park", correct: true }, { text: "Mundo Perdido", correct: false }, { text: "O Parque dos Dinossauros", correct: false }] },
+    { question: "Quem interpreta o Coringa em 'Coringa' de 2019?", answers: [{ text: "Jared Leto", correct: false }, { text: "Jack Nicholson", correct: false }, { text: "Heath Ledger", correct: false }, { text: "Joaquin Phoenix", correct: true }] },
+    { question: "Qual o nome do detetive interpretado por Robert Downey Jr. em dois filmes?", answers: [{ text: "Hercule Poirot", correct: false }, { text: "Sherlock Holmes", correct: true }, { text: "John Watson", correct: false }, { text: "Miss Marple", correct: false }] },
     { question: "Qual o nome do navio em 'Piratas do Caribe'?", answers: [{ text: "Pérola Negra", correct: true }, { text: "HMS Interceptor", correct: false }, { text: "Vingança da Rainha Anne", correct: false }, { text: "Holandês Voador", correct: false }] },
     { question: "Qual a profissão de Bruce Willis em 'Duro de Matar'?", answers: [{ text: "Policial", correct: true }, { text: "Detetive Particular", correct: false }, { text: "Advogado", correct: false }, { text: "Médico", correct: false }] },
     { question: "Quem é o diretor do filme 'Pulp Fiction'?", answers: [{ text: "Quentin Tarantino", correct: true }, { text: "Steven Spielberg", correct: false }, { text: "Martin Scorsese", correct: false }, { text: "Ridley Scott", correct: false }] },
@@ -191,9 +191,17 @@ function selectRandomQuestions() {
     selectedQuestions = shuffled.slice(0, 10);
 }
 
+// Função para embaralhar as respostas de cada pergunta
+function shuffleAnswers(questions) {
+    questions.forEach(question => {
+        question.answers.sort(() => Math.random() - 0.5);
+    });
+}
+
 function startGame() {
     currentQuestionIndex = 0; 
     selectRandomQuestions();
+    shuffleAnswers(selectedQuestions); // Embaralha as respostas das perguntas selecionadas
     score = 0;
     document.getElementById('score-container').style.display = 'none';
     document.getElementById('quiz-container').style.display = 'block';
@@ -261,7 +269,6 @@ function highlightIncorrectAnswers() {
 
 function showScore() {
     document.getElementById('quiz-container').style.display = 'none';
-
     document.querySelector('hr').style.display = 'none'; // Oculta a linha
     document.getElementById('questionIndex').style.display = 'none'; // Oculta o índice da pergunta
     
@@ -274,7 +281,6 @@ function showScore() {
 
     document.getElementById('score-container').style.display = 'block';
 }
-
 
 function getApelido(acertos) {
     if (acertos === 10) {
