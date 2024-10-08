@@ -12,7 +12,7 @@
 
     <div class="container">
         <div class="login-form">
-            <h2>Login</h2>
+            <h2 class="login-title">Login</h2> <!-- Adicionei a classe login-title aqui -->
             <form action="#">
                 <div class="input-group">
                     <input type="email" placeholder="Email" required>
@@ -25,9 +25,9 @@
                 <div class="checkbox">
                     <input type="checkbox" id="remember">
                     <label for="remember">Lembrar de mim</label>
+                    <a href="#" class="forgot">Esqueceu a senha?</a> <!-- Movi para o lado do checkbox -->
                 </div>
                 <button type="submit">Entrar</button>
-                <a href="#" class="forgot">Esqueceu a senha?</a>
                 <p>Não tem uma conta? <a href="#" id="register-link">Cadastre-se</a></p>
             </form>
         </div>

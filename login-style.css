@@ -1,6 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    color: #ffffff;
+    background-image: url('fundo-inicial.jpg'); /* Substitua pelo caminho do seu GIF */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,40 +11,47 @@ body {
 
 .container {
     width: 300px;
-    background-color: white;
+    background: transparent;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px); /* Borrado do fundo */
+    -webkit-backdrop-filter: blur(10px); /* Compatibilidade com Safari */
+    border: 1px solid #ffffff; /* Borda para dar mais destaque */
 }
 
-h2 {
+.login-title {
     text-align: center;
     margin-bottom: 20px;
+    font-size: 30px; /* Aumenta o tamanho do texto "Login" para 20px */
 }
 
 .input-group {
     margin-bottom: 15px;
+    color: #ffffff;
 }
 
 .input-group input {
     width: 100%;
+    background: transparent;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid #d9d9d9;
+    border-radius: 40px;
+    color: white; /* Muda a cor do texto do prompt para branco */
 }
 
 button {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
-    color: white;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
     border: none;
-    border-radius: 5px;
+    border-radius: 40px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #eef0f2;
 }
 
 p {
@@ -51,7 +59,7 @@ p {
 }
 
 a {
-    color: #007bff;
+    color: #ffffff;
     text-decoration: none;
 }
 
@@ -62,4 +70,5 @@ a:hover {
 .checkbox {
     display: flex;
     align-items: center;
+    justify-content: space-between; /* Para espaçar checkbox e link */
 }
