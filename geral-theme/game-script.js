@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     container.classList.add('zoom-in'); // Adiciona a animação de zoom in ao carregar a página
 });
 
+let userPoints = 0;
+
 const allQuestions = [
     { question: "Qual é a capital da França?", answers: [{ text: "Londres", correct: false }, { text: "Paris", correct: true }, { text: "Berlim", correct: false }, { text: "Madri", correct: false }] },
     { question: "Qual é o maior planeta do sistema solar?", answers: [{ text: "Terra", correct: false }, { text: "Júpiter", correct: true }, { text: "Marte", correct: false }, { text: "Saturno", correct: false }] },
@@ -188,8 +190,11 @@ function getApelido(acertos) {
     } else {
         return "Desafiante";
     }
+
 }
 
+// Função para reiniciar o jogo
 document.getElementById('restart-button').addEventListener('click', startGame);
 
+// Inicia o jogo
 startGame();

@@ -2,6 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-analytics.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-firestore.js";
 
 // Configuração do Firebase
 const firebaseConfig = {
@@ -18,20 +19,43 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
+const db = getFirestore(app);   
+
+// Função para exibir erros
+function logError(context, error) {
+    console.error(`${context} falhou:`, error);
+    alert(`${context} falhou: ${error.message || error}`);
+}
 
 // Função para cadastro
 window.register = function() {
     const userEmail = document.querySelector('.register-form input[type="email"]').value;
     const userPassword = document.querySelector('.register-form input[type="password"]').value;
 
+    if (!userEmail || !userPassword) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+    }
+
     createUserWithEmailAndPassword(auth, userEmail, userPassword)
         .then((userCredential) => {
             alert("Cadastro realizado com sucesso!");
-            console.log(userCredential.user);
+            console.log("Usuário criado:", userCredential.user);
+
+            // Criar documento no Firestore para o novo usuário
+            const userId = userCredential.user.uid;
+            const userDocRef = doc(db, "users", userId);
+
+            setDoc(userDocRef, { pontos: 0 })
+                .then(() => {
+                    console.log("Documento do usuário criado com sucesso no Firestore!");
+                })
+                .catch((error) => {
+                    logError("Criação de documento do usuário no Firestore", error);
+                });
         })
         .catch((error) => {
-            console.error("Erro no cadastro:", error);
-            alert("Erro ao realizar cadastro: " + error.message);
+            logError("Cadastro", error);
         });
 }
 
@@ -40,15 +64,32 @@ window.login = function() {
     const userEmail = document.querySelector('.login-form input[type="email"]').value;
     const userPassword = document.querySelector('.login-form input[type="password"]').value;
 
+    if (!userEmail || !userPassword) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+    }
+
     signInWithEmailAndPassword(auth, userEmail, userPassword)
         .then((userCredential) => {
             alert("Login realizado com sucesso!");
-            console.log(userCredential.user);
+            console.log("Usuário logado:", userCredential.user);
+
+            // Criar ou atualizar documento no Firestore
+            const userId = userCredential.user.uid;
+            const userDocRef = doc(db, "users", userId);
+
+            setDoc(userDocRef, { pontos: 0 }, { merge: true })
+                .then(() => {
+                    console.log("Documento do usuário criado/atualizado com sucesso no Firestore!");
+                })
+                .catch((error) => {
+                    logError("Atualização de documento do usuário no Firestore", error);
+                });
+
             window.location.href = "./tela-inicial/tela-inicial.html";
         })
         .catch((error) => {
-            console.error("Erro no login:", error);
-            alert("Erro ao realizar login: " + error.message);
+            logError("Login", error);
         });
 }
 
@@ -56,18 +97,18 @@ window.login = function() {
 window.resetPassword = function() {
     const userEmail = document.querySelector('.login-form input[type="email"]').value;
 
-    if (userEmail) {
-        sendPasswordResetEmail(auth, userEmail)
-            .then(() => {
-                alert("Um email de redefinição de senha foi enviado para " + userEmail);
-            })
-            .catch((error) => {
-                console.error("Erro ao redefinir a senha:", error);
-                alert("Erro ao enviar email de redefinição de senha: " + error.message);
-            });
-    } else {
+    if (!userEmail) {
         alert("Por favor, insira seu email para redefinir a senha.");
+        return;
     }
+
+    sendPasswordResetEmail(auth, userEmail)
+        .then(() => {
+            alert("Um email de redefinição de senha foi enviado para " + userEmail);
+        })
+        .catch((error) => {
+            logError("Redefinição de senha", error);
+        });
 }
 
 // Alternância entre Login e Cadastro
