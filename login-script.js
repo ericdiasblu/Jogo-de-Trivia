@@ -1,7 +1,7 @@
 // Importar as funções que você precisa do SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-auth.js";
 
 // Configuração do Firebase
 const firebaseConfig = {
@@ -52,6 +52,24 @@ window.login = function() {
         });
 }
 
+// Função para redefinir a senha
+window.resetPassword = function() {
+    const userEmail = document.querySelector('.login-form input[type="email"]').value;
+
+    if (userEmail) {
+        sendPasswordResetEmail(auth, userEmail)
+            .then(() => {
+                alert("Um email de redefinição de senha foi enviado para " + userEmail);
+            })
+            .catch((error) => {
+                console.error("Erro ao redefinir a senha:", error);
+                alert("Erro ao enviar email de redefinição de senha: " + error.message);
+            });
+    } else {
+        alert("Por favor, insira seu email para redefinir a senha.");
+    }
+}
+
 // Alternância entre Login e Cadastro
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("register-link").addEventListener("click", function() {
@@ -73,5 +91,11 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector('.register-form form').addEventListener('submit', function(event) {
         event.preventDefault();
         register();
+    });
+
+    // Event listener para "Esqueceu sua senha?"
+    document.getElementById("forgot-password-link").addEventListener("click", function(event) {
+        event.preventDefault();
+        resetPassword();
     });
 });
