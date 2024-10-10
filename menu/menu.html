@@ -20,16 +20,63 @@
                 <span class="button-text">Filmes</span>
             </div>
         </div>
+
+        <!-- Botão para adicionar pontos -->
+        <button id="add-point-btn">Adicionar 1 Ponto</button>
     </div>
 
-    <script>
-        // Adiciona a animação de zoom-in aos botões ao carregar a página
-        window.onload = function() {
-            const buttons = document.querySelectorAll('.quiz-button');
-            buttons.forEach(button => {
-                button.classList.add('zoom-in');
-            });
+    <script type="module">
+        // Importar as funções necessárias do SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-auth.js";
+        import { getFirestore, doc, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-firestore.js";
+
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyARaTW45tTYaD_oOU4pTC5Q3xzoaJEThug",
+            authDomain: "triviaworld-78303.firebaseapp.com",
+            projectId: "triviaworld-78303",
+            storageBucket: "triviaworld-78303.appspot.com",
+            messagingSenderId: "837777772940",
+            appId: "1:837777772940:web:f2e0c54ff850a8ed3446a9",
+            measurementId: "G-CYM802EQT7"
         };
+
+        // Inicializar o Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Verifica se o usuário está autenticado
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                console.log("Usuário autenticado:", user.uid);
+                const userId = user.uid;
+                const userDocRef = doc(db, "users", userId);
+
+                // Evento de clique no botão para adicionar 1 ponto
+                document.getElementById('add-point-btn').addEventListener('click', async () => {
+                    try {
+                        const docSnapshot = await getDoc(userDocRef);
+                        if (docSnapshot.exists()) {
+                            const currentPoints = docSnapshot.data().pontos || 0; // Pontos atuais
+                            await updateDoc(userDocRef, {
+                                pontos: currentPoints + 1 // Adiciona 1 ponto
+                            });
+                            console.log("Ponto adicionado com sucesso! Pontos atuais:", currentPoints + 1);
+                            alert("Você ganhou 1 ponto! Total de pontos: " + (currentPoints + 1));
+                        } else {
+                            console.log("Documento do usuário não encontrado.");
+                        }
+                    } catch (error) {
+                        console.error("Erro ao adicionar ponto: ", error);
+                        alert("Erro ao adicionar ponto: " + error.message);
+                    }
+                });
+            } else {
+                console.log("Nenhum usuário autenticado.");
+            }
+        });
     </script>
 </body>
 </html>
