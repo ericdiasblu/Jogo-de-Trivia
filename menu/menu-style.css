@@ -71,7 +71,7 @@ h1 {
 /* Animação ao passar o mouse */
 .quiz-button:hover {
     background-color: #ec6391;
-    transform: scale(1.5); /* Aumenta o botão ao passar o mouse */
+    transform: scale(1.1); /* Aumenta o botão ao passar o mouse */
 }
 
 /* Imagem do botão */
