@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    
     const container = document.querySelector('.container');
     container.classList.add('zoom-in'); // Adiciona a animação de zoom in ao carregar a página
 });
@@ -204,6 +205,7 @@ function highlightIncorrectAnswers() {
     });
 }
 
+
 function showScore() {
     document.getElementById('quiz-container').style.display = 'none';
 
@@ -250,6 +252,28 @@ function getApelido(acertos) {
     }
 }
 // Função para atualizar pontos no Firestore
+function mostrarAnimacaoPontos(pontosGanhos) {
+    const animacao = document.createElement('div');
+    animacao.className = 'point-animation';
+    animacao.innerText = `+${pontosGanhos}`;
+    document.body.appendChild(animacao);
+
+    // Posiciona a animação no centro da tela
+    animacao.style.left = '50%';
+    animacao.style.top = '40%';
+    animacao.style.transform = 'translate(-50%, -50%) scale(1)'; // Centraliza e ajusta escala
+    requestAnimationFrame(() => {
+        animacao.style.transform = 'translate(-50%, -50%) scale(1.5)'; // Aumenta a escala
+        animacao.style.opacity = '0'; // Fade out
+    });
+
+    // Remove a animação após 1 segundo
+    setTimeout(() => {
+        document.body.removeChild(animacao);
+    }, 1000);
+}
+
+// Função para atualizar pontos no Firestore
 function atualizarPontos(acertos) {
     const user = auth.currentUser;
     if (user) {
@@ -268,6 +292,10 @@ function atualizarPontos(acertos) {
                     })
                     .then(() => {
                         console.log(`Ponto adicionado com sucesso! Total de pontos: ${currentPoints + pontos}`);
+                        // Mostra animação ao ganhar pontos
+                        if (acertos >= 8) {
+                            mostrarAnimacaoPontos(pontos);
+                        }
                     })
                     .catch((error) => {
                         console.error("Erro ao atualizar os pontos:", error);
