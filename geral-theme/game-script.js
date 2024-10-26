@@ -3,6 +3,53 @@ document.addEventListener('DOMContentLoaded', () => {
     container.classList.add('zoom-in'); // Adiciona a animação de zoom in ao carregar a página
 });
 
+// Importar as funções necessárias do SDK
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-auth.js";
+import { getFirestore, doc } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-firestore.js";
+import { getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-firestore.js";
+
+
+// Configuração do Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyARaTW45tTYaD_oOU4pTC5Q3xzoaJEThug",
+    authDomain: "triviaworld-78303.firebaseapp.com",
+    projectId: "triviaworld-78303",
+    storageBucket: "triviaworld-78303.appspot.com",
+    messagingSenderId: "837777772940",
+    appId: "1:837777772940:web:f2e0c54ff850a8ed3446a9",
+    measurementId: "G-CYM802EQT7"
+};
+
+// Inicializar o Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Verifica se o usuário está autenticado
+onAuthStateChanged(auth, (user) => {
+    console.log("Verificando estado de autenticação...");
+    if (user) {
+        console.log("Usuário autenticado:", user.uid);
+        const userDocRef = doc(db, "users", user.uid);
+        
+        getDoc(userDocRef)
+            .then((docSnapshot) => {
+                if (docSnapshot.exists()) {
+                    console.log("Dados do usuário:", docSnapshot.data());
+                } else {
+                    console.log("Documento do usuário não encontrado.");
+                }
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar documento do usuário:", error);
+            });
+    } else {
+        console.log("Nenhum usuário autenticado.");
+    }
+});
+
+
 let userPoints = 0;
 
 const allQuestions = [
@@ -170,6 +217,9 @@ function showScore() {
     scoreElement.innerText = `Você acertou ${score} de ${selectedQuestions.length} perguntas!`;
     apelidoElement.innerText = `${apelido}`;
 
+    // Chama a função para atualizar pontos no Firestore
+    atualizarPontos(score);
+
     document.getElementById('score-container').style.display = 'block';
 }
 
@@ -177,22 +227,62 @@ function showScore() {
 function getApelido(acertos) {
     if (acertos === 10) {
         return "Gênio";
+    // adiciona 3 pontos
     } else if (acertos >= 8) {
         return "Expert";
+        // adiciona 2 pontos
     } else if (acertos >= 6) {
         return "Sábio";
+    // adiciona 1 pontos
     } else if (acertos >= 4) {
         return "Estudioso";
+    //nenhum ponto
     } else if (acertos >= 2) {
         return "Curioso";
+            //nenhum ponto
     } else if (acertos === 1) {
         return "Iniciante";
+            //nenhum ponto
     } else {
         return "Desafiante";
+            //nenhum ponto
+
     }
-
 }
+// Função para atualizar pontos no Firestore
+function atualizarPontos(acertos) {
+    const user = auth.currentUser;
+    if (user) {
+        const userDocRef = doc(db, "users", user.uid);
+        getDoc(userDocRef)
+            .then((docSnapshot) => {
+                if (docSnapshot.exists()) {
+                    let pontos = 0;
+                    if (acertos === 10) pontos = 3;
+                    else if (acertos === 9) pontos = 2;
+                    else if (acertos === 8) pontos = 1;
 
+                    const currentPoints = docSnapshot.data().pontos || 0; // Pontos atuais
+                    updateDoc(userDocRef, {
+                        pontos: currentPoints + pontos // Atualiza com novos pontos
+                    })
+                    .then(() => {
+                        console.log(`Ponto adicionado com sucesso! Total de pontos: ${currentPoints + pontos}`);
+                    })
+                    .catch((error) => {
+                        console.error("Erro ao atualizar os pontos:", error);
+                    });
+                } else {
+                    console.log("Documento do usuário não encontrado.");
+                }
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar documento do usuário:", error);
+            });
+    } else {
+        console.log("Nenhum usuário autenticado.");
+    }
+}
 // Função para reiniciar o jogo
 document.getElementById('restart-button').addEventListener('click', startGame);
 
