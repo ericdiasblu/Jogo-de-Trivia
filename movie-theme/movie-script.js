@@ -3,6 +3,52 @@ document.addEventListener('DOMContentLoaded', () => {
     container.classList.add('zoom-in'); // Adiciona a animação de zoom in ao carregar a página
 });
 
+// Importar as funções necessárias do SDK
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-auth.js";
+import { getFirestore, doc } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-firestore.js";
+import { getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-firestore.js";
+
+
+// Configuração do Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyARaTW45tTYaD_oOU4pTC5Q3xzoaJEThug",
+    authDomain: "triviaworld-78303.firebaseapp.com",
+    projectId: "triviaworld-78303",
+    storageBucket: "triviaworld-78303.appspot.com",
+    messagingSenderId: "837777772940",
+    appId: "1:837777772940:web:f2e0c54ff850a8ed3446a9",
+    measurementId: "G-CYM802EQT7"
+};
+
+// Inicializar o Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Verifica se o usuário está autenticado
+onAuthStateChanged(auth, (user) => {
+    console.log("Verificando estado de autenticação...");
+    if (user) {
+        console.log("Usuário autenticado:", user.uid);
+        const userDocRef = doc(db, "users", user.uid);
+        
+        getDoc(userDocRef)
+            .then((docSnapshot) => {
+                if (docSnapshot.exists()) {
+                    console.log("Dados do usuário:", docSnapshot.data());
+                } else {
+                    console.log("Documento do usuário não encontrado.");
+                }
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar documento do usuário:", error);
+            });
+    } else {
+        console.log("Nenhum usuário autenticado.");
+    }
+});
+
 const allQuestions = [
     { question: "Qual filme ganhou o Oscar de Melhor Filme em 1994?", answers: [{ text: "O Rei Leão", correct: false }, { text: "Forrest Gump", correct: true }, { text: "Braveheart", correct: false }, { text: "Pulp Fiction", correct: false }] },
     { question: "Quem dirigiu o filme 'Tubarão' de 1975?", answers: [{ text: "George Lucas", correct: false }, { text: "Francis Ford Coppola", correct: false }, { text: "Steven Spielberg", correct: true }, { text: "Martin Scorsese", correct: false }] },
@@ -279,6 +325,9 @@ function showScore() {
     scoreElement.innerText = `Você acertou ${score} de ${selectedQuestions.length} perguntas!`;
     apelidoElement.innerText = `${apelido}`;
 
+    // Chama a função para atualizar pontos no Firestore
+    atualizarPontos(score);
+
     document.getElementById('score-container').style.display = 'block';
 }
 
@@ -297,6 +346,67 @@ function getApelido(acertos) {
         return "Iniciante";
     } else {
         return "Desafiante";
+    }
+}
+
+// Função para atualizar pontos no Firestore
+function mostrarAnimacaoPontos(pontosGanhos) {
+    const animacao = document.createElement('div');
+    animacao.className = 'point-animation';
+    animacao.innerText = `+${pontosGanhos}`;
+    document.body.appendChild(animacao);
+
+    // Posiciona a animação no centro da tela
+    animacao.style.left = '50%';
+    animacao.style.top = '40%';
+    animacao.style.transform = 'translate(-50%, -50%) scale(1)'; // Centraliza e ajusta escala
+    requestAnimationFrame(() => {
+        animacao.style.transform = 'translate(-50%, -50%) scale(1.5)'; // Aumenta a escala
+        animacao.style.opacity = '0'; // Fade out
+    });
+
+    // Remove a animação após 1 segundo
+    setTimeout(() => {
+        document.body.removeChild(animacao);
+    }, 1000);
+}
+
+// Função para atualizar pontos no Firestore
+function atualizarPontos(acertos) {
+    const user = auth.currentUser;
+    if (user) {
+        const userDocRef = doc(db, "users", user.uid);
+        getDoc(userDocRef)
+            .then((docSnapshot) => {
+                if (docSnapshot.exists()) {
+                    let pontos = 0;
+                    if (acertos === 10) pontos = 3;
+                    else if (acertos === 9) pontos = 2;
+                    else if (acertos === 8) pontos = 1;
+
+                    const currentPoints = docSnapshot.data().pontos || 0; // Pontos atuais
+                    updateDoc(userDocRef, {
+                        pontos: currentPoints + pontos // Atualiza com novos pontos
+                    })
+                    .then(() => {
+                        console.log(`Ponto adicionado com sucesso! Total de pontos: ${currentPoints + pontos}`);
+                        // Mostra animação ao ganhar pontos
+                        if (acertos >= 8) {
+                            mostrarAnimacaoPontos(pontos);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Erro ao atualizar os pontos:", error);
+                    });
+                } else {
+                    console.log("Documento do usuário não encontrado.");
+                }
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar documento do usuário:", error);
+            });
+    } else {
+        console.log("Nenhum usuário autenticado.");
     }
 }
 

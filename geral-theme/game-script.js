@@ -134,10 +134,17 @@ function selectRandomQuestions() {
     selectedQuestions = shuffled.slice(0, 10);
 }
 
+// Função para embaralhar as respostas de cada pergunta
+function shuffleAnswers(questions) {
+    questions.forEach(question => {
+        question.answers.sort(() => Math.random() - 0.5);
+    });
+}
+
 function startGame() {
     currentQuestionIndex = 0; 
     selectRandomQuestions();
-
+    shuffleAnswers(selectedQuestions); // Embaralha as respostas das perguntas selecionadas
     score = 0;
     document.getElementById('score-container').style.display = 'none';
     document.getElementById('quiz-container').style.display = 'block';
