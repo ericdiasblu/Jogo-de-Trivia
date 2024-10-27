@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-analytics.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-auth.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-firestore.js";
 
 // Configuração do Firebase
 const firebaseConfig = {
@@ -74,24 +74,32 @@ window.login = function() {
             alert("Login realizado com sucesso!");
             console.log("Usuário logado:", userCredential.user);
 
-            // Criar ou atualizar documento no Firestore
+            // Pega os pontos do Firestore sem alterar o valor
             const userId = userCredential.user.uid;
             const userDocRef = doc(db, "users", userId);
 
-            setDoc(userDocRef, { pontos: 0 }, { merge: true })
-                .then(() => {
-                    console.log("Documento do usuário criado/atualizado com sucesso no Firestore!");
+            getDoc(userDocRef)
+                .then((docSnapshot) => {
+                    if (docSnapshot.exists()) {
+                        const userPoints = docSnapshot.data().pontos || 0; // Carrega os pontos atuais
+                        console.log(`Pontos carregados do Firestore: ${userPoints}`);
+                        // Atualiza a interface ou estado com os pontos carregados, se necessário.
+                    } else {
+                        console.error("Documento do usuário não encontrado.");
+                    }
+
+                    // Redireciona para a tela inicial após buscar os pontos
+                    window.location.href = "./tela-inicial/tela-inicial.html";
                 })
                 .catch((error) => {
-                    logError("Atualização de documento do usuário no Firestore", error);
+                    console.error("Erro ao buscar pontos do usuário no Firestore:", error);
                 });
-
-            window.location.href = "./tela-inicial/tela-inicial.html";
         })
         .catch((error) => {
             logError("Login", error);
         });
 }
+
 
 // Função para redefinir a senha
 window.resetPassword = function() {

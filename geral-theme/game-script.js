@@ -50,9 +50,6 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
-
-let userPoints = 0;
-
 const allQuestions = [
     { question: "Qual é a capital da França?", answers: [{ text: "Londres", correct: false }, { text: "Paris", correct: true }, { text: "Berlim", correct: false }, { text: "Madri", correct: false }] },
     { question: "Qual é o maior planeta do sistema solar?", answers: [{ text: "Terra", correct: false }, { text: "Júpiter", correct: true }, { text: "Marte", correct: false }, { text: "Saturno", correct: false }] },
@@ -140,6 +137,7 @@ function selectRandomQuestions() {
 function startGame() {
     currentQuestionIndex = 0; 
     selectRandomQuestions();
+
     score = 0;
     document.getElementById('score-container').style.display = 'none';
     document.getElementById('quiz-container').style.display = 'block';
