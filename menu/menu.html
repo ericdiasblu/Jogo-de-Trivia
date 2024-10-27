@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="../icon.png">    
+    <link rel="icon" type="image/x-icon" href="../icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="menu-style.css"> <!-- Certifique-se de que o caminho esteja correto -->
     <title>Trivia World</title>
     <style>
@@ -11,14 +13,24 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            font-size: 1.2em; /* Ajuste o tamanho da fonte conforme necessário */
-            background-color: #9e0059; /* Fundo semitransparente para melhor legibilidade */
-            padding: 10px 10px; /* Adiciona algum preenchimento */
-            border-radius: 5px; /* Bordas arredondadas */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Sombra para destaque */
+            font-size: 1.2em;
+            /* Ajuste o tamanho da fonte conforme necessário */
+            background-color: #9e0059;
+            /* Fundo semitransparente para melhor legibilidade */
+            padding: 10px 10px;
+            /* Adiciona algum preenchimento */
+            border-radius: 5px;
+            /* Bordas arredondadas */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            /* Sombra para destaque */
+            border: 2px solid #ff0054;
+            /* Adiciona borda branca de 2px */
+            font-family: 'Rubik', sans-serif; /* Aplica a fonte Rubik */
+            font-weight: 700; /* Define o peso da fonte como negrito */
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Escolha o Tema do Quiz</h1>
@@ -30,6 +42,7 @@
             <div class="quiz-button filmes-button" onclick="window.location.href='../movie-theme/movie.html'">
                 <img class="button-image" src="imagem-filmes.png" alt="Ícone Filmes">
                 <span class="button-text">Filmes</span>
+                
             </div>
         </div>
 
@@ -71,7 +84,7 @@
                     const docSnapshot = await getDoc(userDocRef);
                     if (docSnapshot.exists()) {
                         const currentPoints = docSnapshot.data().pontos || 0; // Pontos atuais
-                        document.getElementById('user-points').innerText = `Pontos: ${currentPoints}`; // Atualiza a exibição
+                        document.getElementById('user-points').innerText = `PONTOS: ${currentPoints}`; // Atualiza a exibição
                     } else {
                         console.log("Documento do usuário não encontrado.");
                     }
@@ -80,9 +93,10 @@
                 }
             } else {
                 console.log("Nenhum usuário autenticado.");
-                document.getElementById('user-points').innerText = `Pontos: 0`; // Reseta a exibição se não estiver autenticado
+                document.getElementById('user-points').innerText = `PONTOS: 0`; // Reseta a exibição se não estiver autenticado
             }
         });
     </script>
 </body>
+
 </html>
