@@ -68,7 +68,7 @@ h2 {
 
 button {
     padding: 15px 20px;
-    background-color: #ff0054; /* Cor de fundo do botão */
+    background-color: #2078db; /* Cor de fundo do botão */
     color: #ffffff; /* Texto do botão em branco */
     border: none;
     border-radius: 5px;
@@ -79,7 +79,7 @@ button {
 }
 
 button:hover {
-    background-color: #9e0059; /* Cor do botão ao passar o mouse */
+    background-color: #327ebd; /* Cor do botão ao passar o mouse */
     transform: scale(1.05);
 }
 
