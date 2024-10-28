@@ -11,7 +11,7 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #390099; /* Cor de fundo principal */
-    background-image: url('fundo.png'); /* Substitua pelo caminho do seu GIF */
+    background-image: url('fundo.jpeg'); /* Substitua pelo caminho do seu GIF */
     background-size: cover; /* Ajusta o GIF para cobrir toda a tela */
     background-repeat: no-repeat; /* Não repete o GIF */
     display: flex;
@@ -37,7 +37,7 @@ body {
 
 #questionIndex {
     margin-top: 40px;
-    color: #390099;
+    color: #190ccf;
     position: center; /* Posiciona o index */
     left: 0; /* Fixa no lado esquerdo */
     top: 50%; /* Centraliza verticalmente, se necessário */
@@ -46,14 +46,14 @@ body {
 
 h1 {
     font-size: 2em;
-    color: #9e0059; /* Título em rosa escuro */
+    color: #235307; /* Título em rosa escuro */
     margin-bottom: 10px;
 }
 
 h2 {
     text-align: center;
     font-size: 1.5em; /* ajuste o tamanho conforme necessário */
-    color: #390099;
+    color: #227900;
     margin: 0.5em 0; /* ajuste a margem conforme necessário */
 }
 
@@ -91,7 +91,7 @@ button:hover {
     padding: 15px;
     background: #e9ecef;
     color: black;
-    border: 2px solid #390099; /* Borda roxa */
+    border: 2px solid #1235fa; /* Borda roxa */
     margin: 5px 0;
     border-radius: 5px;
     cursor: pointer;
@@ -99,7 +99,7 @@ button:hover {
 }
 
 .answer:hover {
-    background: #ff0054; /* Cor de fundo ao passar o mouse */
+    background: #2eb6d8; /* Cor de fundo ao passar o mouse */
     transform: scale(1.05);
 }
 
@@ -161,7 +161,7 @@ button:hover {
 .back-button {
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #9e0059; /* Cor de fundo */
+    background-color: #ccbc2a; /* Cor de fundo */
     color: white;
     border: none;
     border-radius: 5px;
@@ -171,7 +171,7 @@ button:hover {
 }
 
 .back-button:hover {
-    background-color: #ff0054; /* Cor do botão ao passar o mouse */
+    background-color: #eed12bf8; /* Cor do botão ao passar o mouse */
 }
 
 .fade-out {
